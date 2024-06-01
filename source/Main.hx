@@ -6,8 +6,14 @@ import flixel.FlxState;
 import openfl.Assets;
 import openfl.Lib;
 import openfl.display.FPS;
+import haxe.io.Path;
 import openfl.display.Sprite;
 import openfl.events.Event;
+
+#if android
+import android.content.Context;
+import android.os.Build;
+#end
 
 class Main extends Sprite
 {
