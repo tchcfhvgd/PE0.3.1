@@ -122,7 +122,7 @@ class Paths
 
 	inline static public function image(key:String, ?library:String):Dynamic
 	{
-		#if MODS_ALLOWED
+		#if desktop
 		if(FileSystem.exists(modsImages(key))) {
 			if(!customImagesLoaded.exists(key)) {
 				customImagesLoaded.set(key, BitmapData.fromFile(modsImages(key)));
@@ -135,28 +135,6 @@ class Paths
 	
 	static public function getTextFromFile(key:String, ?ignoreMods:Bool = false):String
 	{
-		#if sys
-		if (!ignoreMods && FileSystem.exists(mods(key)))
-			return File.getContent(mods(key));
-
-		if (FileSystem.exists(getPreloadPath(key)))
-			return File.getContent(getPreloadPath(key));
-
-		if (currentLevel != null)
-		{
-			var levelPath = getLibraryPathForce(key, currentLevel + '_high');
-			if (!ClientPrefs.lowQuality && FileSystem.exists(levelPath))
-				return File.getContent(levelPath);
-
-			levelPath = getLibraryPathForce(key, currentLevel);
-			if (FileSystem.exists(levelPath))
-				return File.getContent(levelPath);
-
-			levelPath = getLibraryPathForce(key, 'shared');
-			if (FileSystem.exists(levelPath))
-				return File.getContent(levelPath);
-		}
-		#end
 		return Assets.getText(getPath(key, TEXT));
 	}
 
@@ -171,7 +149,7 @@ class Paths
 			return true;
 		}
 
-		#if MODS_ALLOWED
+		#if desktop
 		if(FileSystem.exists(mods(key))) {
 			return true;
 		}
@@ -181,7 +159,7 @@ class Paths
 
 	inline static public function getSparrowAtlas(key:String, ?library:String)
 	{
-		#if MODS_ALLOWED
+		#if desktop
 		var imageLoaded:BitmapData = null;
 		if(FileSystem.exists(modsImages(key))) {
 			if(!customImagesLoaded.exists(key)) {
@@ -203,7 +181,7 @@ class Paths
 
 	inline static public function getPackerAtlas(key:String, ?library:String)
 	{
-		#if MODS_ALLOWED
+		#if desktop
 		var imageLoaded:BitmapData = null;
 		if(FileSystem.exists(modsImages(key))) {
 			if(!customImagesLoaded.exists(key)) {
