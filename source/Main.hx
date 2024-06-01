@@ -9,6 +9,7 @@ import openfl.display.FPS;
 import haxe.io.Path;
 import openfl.display.Sprite;
 import openfl.events.Event;
+import openfl.utils.AssetCache;
 
 #if android
 import android.content.Context;
@@ -84,5 +85,25 @@ class Main extends Sprite
 		FlxG.autoPause = false;
 		FlxG.mouse.visible = false;
 		#end
+
+		FlxG.signals.preStateCreate.add(onPreStateCreate);
+	}
+
+        private inline function onPreStateCreate(state:FlxState):Void
+	{
+		var cache:AssetCache = cast(Assets.cache, AssetCache);
+
+		// Clear the loaded graphics if they are no longer in flixel cache...
+		for (key in cache.bitmapData.keys())
+			if (!FlxG.bitmap.checkCache(key))
+				cache.bitmapData.remove(key);
+
+		// Clear all the loaded sounds from the cache...
+		for (key in cache.sound.keys())
+			cache.sound.remove(key);
+
+		// Clear all the loaded fonts from the cache...
+		for (key in cache.font.keys())
+			cache.font.remove(key);
 	}
 }
