@@ -278,11 +278,10 @@ class PlayState extends MusicBeatState
 		// String for when the game is paused
 		detailsPausedText = "Paused - " + detailsText;
 		#end
-
-		switch(SONG.stage)
+		
+		switch (SONG.song.toLowerCase())
 		{
-		    case 'room':
-				{
+			case 'common-sense' | 'context' | 'highlights':
 						defaultCamZoom = 0.8;
 						curStage = 'room';
 						var out:FlxSprite = new FlxSprite(-600, 40).loadGraphic(Paths.image('Nonsense/Outside'));
@@ -297,9 +296,8 @@ class PlayState extends MusicBeatState
 						roomin.antialiasing = true;
 						roomin.active = false;
 						add(roomin);
-				}
-				case 'room-space': 
-			{
+				
+			case 'nonsense' | 'nonsensical':
                 defaultCamZoom = 0.8;
 				curStage = 'room-space';
 				
@@ -319,11 +317,6 @@ class PlayState extends MusicBeatState
 				NHroom.setGraphicSize(Std.int(NHroom.width * 0.9));
 				NHroom.antialiasing = true;
 				add(NHroom);
-			}
-	    }
-		
-		switch (SONG.song.toLowerCase())
-		{
 			case 'spookeez' | 'south' | 'monster':
 				curStage = 'spooky';
 
