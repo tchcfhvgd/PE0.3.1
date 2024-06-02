@@ -170,6 +170,7 @@ class PlayState extends MusicBeatState
 	var limoCorpse:BGSprite;
 	var limoCorpseTwo:BGSprite;
 	var bgLimo:BGSprite;
+	var NHroom:FlxSprite;
 	var grpLimoParticles:FlxTypedGroup<BGSprite>;
 	var grpLimoDancers:FlxTypedGroup<BackgroundDancer>;
 	var fastCar:BGSprite;
@@ -278,6 +279,49 @@ class PlayState extends MusicBeatState
 		detailsPausedText = "Paused - " + detailsText;
 		#end
 
+		switch(SONG.stage)
+		{
+		    case 'room':
+				{
+						defaultCamZoom = 0.8;
+						curStage = 'room';
+						var out:FlxSprite = new FlxSprite(-600, 40).loadGraphic(Paths.image('Nonsense/Outside'));
+						out.setGraphicSize(Std.int(out.width * 0.8));
+						out.antialiasing = true;
+						out.scrollFactor.set(0.8, 0.8);
+						out.active = false;
+						add(out);
+	
+						var roomin:FlxSprite = new FlxSprite(-800, -370).loadGraphic(Paths.image('Nonsense/BACKGROUND'));
+						roomin.setGraphicSize(Std.int(roomin.width * 0.9));
+						roomin.antialiasing = true;
+						roomin.active = false;
+						add(roomin);
+				}
+				case 'room-space': 
+			{
+                defaultCamZoom = 0.8;
+				curStage = 'room-space';
+				
+				var space:FlxSprite = new FlxSprite(-800, -370).loadGraphic(Paths.image('Nonsense/Outside_Space'));
+				space.setGraphicSize(Std.int(space.width * 0.8));
+				space.antialiasing = true;
+				space.scrollFactor.set(0.8, 0.8);
+				space.active = false;
+				add(space);
+				
+				var spaceTex = Paths.getSparrowAtlas('Nonsense/BACKGROUND_space');
+
+				NHroom = new FlxSprite( -800, -370);
+				NHroom.frames = spaceTex;
+				NHroom.animation.addByPrefix('space', 'Wall Broken anim', 24, true);
+				NHroom.animation.play('space');
+				NHroom.setGraphicSize(Std.int(NHroom.width * 0.9));
+				NHroom.antialiasing = true;
+				add(NHroom);
+			}
+	    }
+		
 		switch (SONG.song.toLowerCase())
 		{
 			case 'spookeez' | 'south' | 'monster':
@@ -606,6 +650,10 @@ class PlayState extends MusicBeatState
 		// REPOSITIONING PER STAGE
 		switch (curStage)
 		{
+			case 'room':
+			    BF_X  += 330;
+			case 'room-space':
+				BF_X  += 330;
 			case 'limo':
 				BF_Y -= 220;
 				BF_X += 260;
@@ -1314,11 +1362,7 @@ class PlayState extends MusicBeatState
 
 		var songName:String = SONG.song.toLowerCase();
 		var file:String = Paths.json(songName + '/events');
-		#if sys
-		if (sys.FileSystem.exists(file)) {
-		#else
 		if (OpenFlAssets.exists(file)) {
-		#end
 			var eventsData:Array<SwagSection> = Song.loadFromJson('events', songName).notes;
 			for (section in eventsData)
 			{
