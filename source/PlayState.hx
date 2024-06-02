@@ -84,6 +84,7 @@ class PlayState extends MusicBeatState
 	public var GF_Y:Float = 130;
 	private var shakeCam:Bool = false;
 	var camMovement:Float = 0.09;
+	private var floatshit:Float = 0;
 
 	public var boyfriendGroup:FlxTypedGroup<Boyfriend>;
 	public var dadGroup:FlxTypedGroup<Character>;
@@ -1730,6 +1731,12 @@ class PlayState extends MusicBeatState
 		if (shakeCam)
 		{
 			FlxG.camera.shake(0.02, 0.02);
+		}
+		
+		floatshit += 0.05;
+		
+		if (dad.curCharacter == "nonsense-god"){
+			dad.y += Math.sin(floatshit);
 		}
 		
 		#if !debug
@@ -3487,7 +3494,7 @@ class PlayState extends MusicBeatState
 		callOnLuas('onStepHit', []);
 	
 	    switch (curSong){
-			case 'Common Sense':
+			case 'Common-sense':
 				switch (curStep){
 					case 1:
 							boyfriend.frames = Paths.getSparrowAtlas('characters/BOYFRIEND');
