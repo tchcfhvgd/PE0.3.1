@@ -82,6 +82,8 @@ class PlayState extends MusicBeatState
 	public var DAD_Y:Float = 100;
 	public var GF_X:Float = 400;
 	public var GF_Y:Float = 130;
+	private var shakeCam:Bool = false;
+	var camMovement:Float = 0.09;
 
 	public var boyfriendGroup:FlxTypedGroup<Boyfriend>;
 	public var dadGroup:FlxTypedGroup<Character>;
@@ -1725,6 +1727,11 @@ class PlayState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{
+		if (shakeCam)
+		{
+			FlxG.camera.shake(0.02, 0.02);
+		}
+		
 		#if !debug
 		perfectMode = false;
 		#end
@@ -3478,6 +3485,334 @@ class PlayState extends MusicBeatState
 		lastStepHit = curStep;
 		setOnLuas('curStep', curStep);
 		callOnLuas('onStepHit', []);
+	
+	    switch (curSong){
+			case 'Common Sense':
+				switch (curStep){
+					case 1:
+							boyfriend.frames = Paths.getSparrowAtlas('characters/BOYFRIEND');
+							boyfriend.animation.addByPrefix('singUPmiss', 'BF NOTE UP MISS', 24, true);
+							boyfriend.animation.addByPrefix('singLEFTmiss', 'BF NOTE LEFT MISS', 24, true);
+							boyfriend.animation.addByPrefix('singRIGHTmiss', 'BF NOTE RIGHT MISS', 24, true);
+							boyfriend.animation.addByPrefix('singDOWNmiss', 'BF NOTE DOWN MISS', 24, true);
+							boyfriend.animation.addByPrefix('singintro', 'BF gun away', 24, false);
+							boyfriend.addOffset("idle", 77, 15);
+							boyfriend.addOffset("singUPmiss", -29, 27);
+							boyfriend.addOffset("singRIGHTmiss", -30, 21);
+							boyfriend.addOffset("singLEFTmiss", 12, 24);
+							boyfriend.addOffset("singDOWNmiss", -11, -19);
+							boyfriend.addOffset("singintro", 77, 15);
+							boyfriend.playAnim('singintro');
+							add(boyfriend);
+						case 16:
+							remove(boyfriend);
+							boyfriend = new Boyfriend(1100, 450, 'bf');
+							add(boyfriend);
+					case 512:
+						camMovement = 0.02;
+						defaultCamZoom = 1.0;
+					case 518:
+						camMovement = 0.09;
+						defaultCamZoom = 0.7;
+						FlxG.camera.flash(FlxColor.WHITE, 0.2);
+						shakeCam = true;
+					case 522:
+						shakeCam = false;
+					case 550:
+						camMovement = 0.09;
+						defaultCamZoom = 1.0;
+					case 566:
+						camMovement = 0.09;
+						defaultCamZoom = 0.95;
+					case 572:
+						camMovement = 0.09;
+						defaultCamZoom = 0.87;
+					case 578:
+						camMovement = 0.09;
+						defaultCamZoom = 0.8;
+					case 582:
+						camMovement = 0.09;
+						defaultCamZoom = 0.8;
+					case 588:
+						camMovement = 0.01;
+						defaultCamZoom = 1.0;
+					case 598:
+						camMovement = 0.09;
+						defaultCamZoom = 0.7;
+					case 614:
+						camMovement = 0.09;
+						defaultCamZoom = 0.8;
+					case 628:
+						camMovement = 0.01;
+						defaultCamZoom = 0.87;
+					case 632:
+						camMovement = 0.01;
+						defaultCamZoom = 0.95;
+					case 636:
+						camMovement = 0.01;
+						defaultCamZoom = 1.0;
+					case 640:
+						camMovement = 0.01;
+						defaultCamZoom = 1.0;
+					case 646:
+						camMovement = 0.09;
+						defaultCamZoom = 0.8;
+					case 774:
+						camMovement = 0.09;
+						defaultCamZoom = 1.0;
+					case 790:
+						camMovement = 0.09;
+						defaultCamZoom = 0.8;
+				}
+			case 'Highlights':
+				switch (curStep) {
+					case 20:
+							camMovement = 0.09;
+							defaultCamZoom = 0.7;
+						case 35:
+							camMovement = 0.09;
+							defaultCamZoom = 0.8;
+						case 235:
+							camMovement = 0.09;
+							defaultCamZoom = 1.0;
+						case 243:
+							camMovement = 0.09;
+							defaultCamZoom = 0.8;
+							FlxG.camera.flash(FlxColor.WHITE, 0.2);
+							shakeCam = true;
+						case 246:
+							shakeCam = false;
+						case 255:
+							camMovement = 0.09;
+							defaultCamZoom = 0.9;
+						case 267:
+							camMovement = 0.09;
+							defaultCamZoom = 1.0;
+						case 274:
+							camMovement = 0.09;
+							defaultCamZoom = 0.8;
+						case 371:
+							camMovement = 0.09;
+							defaultCamZoom = 0.9;
+						case 387:
+							camMovement = 0.09;
+							defaultCamZoom = 0.8;
+						case 467:
+							camMovement = 0.02;
+								new FlxTimer().start(0.1, function(tmr:FlxTimer)
+								{
+									defaultCamZoom += 0.01;
+									if (defaultCamZoom < 1.0)
+									{
+										tmr.reset(0.1);
+									}
+									else
+									{
+										//add(garsmoke);
+										trace('elcamera do good');
+									}
+								});
+						case 499:
+							camMovement = 0.09;
+							defaultCamZoom = 0.8;
+							FlxG.camera.flash(FlxColor.WHITE, 0.2);
+							shakeCam = true;
+						case 503:
+							shakeCam = false;
+						case 513:
+							camMovement = 0.09;
+							defaultCamZoom = 0.9;
+						case 523:
+							camMovement = 0.09;
+							defaultCamZoom = 1.0;
+						case 530:
+							camMovement = 0.09;
+							defaultCamZoom = 0.8;
+						case 621:
+							camMovement = 0.02;
+							new FlxTimer().start(0.1, function(tmr:FlxTimer)
+							{
+								defaultCamZoom += 0.04;
+								if (defaultCamZoom < 1.0)
+								{
+									tmr.reset(0.1);
+								}
+								else
+								{
+									//add(garsmoke);
+									trace('elcamera do good');
+								}
+							});
+							shakeCam = true;
+						case 627:
+							camMovement = 0.09;
+							defaultCamZoom = 0.7;
+							FlxG.camera.flash(FlxColor.WHITE, 0.2);
+						case 631:
+							shakeCam = false;
+						case 643:
+							camMovement = 0.09;
+							defaultCamZoom = 0.9;
+						case 659:
+							camMovement = 0.09;
+							defaultCamZoom = 0.8;
+						case 729:
+							camMovement = 0.09;
+							defaultCamZoom = 0.7;
+						case 739:
+							camMovement = 0.09;
+							defaultCamZoom = 0.9;
+						case 755:
+							camMovement = 0.09;
+							defaultCamZoom = 0.8;
+						case 819:
+							camMovement = 0.09;
+							defaultCamZoom = 0.7;
+							FlxG.camera.flash(FlxColor.WHITE, 0.2);
+							shakeCam = true;
+						case 823:
+							shakeCam = false;
+						case 835:
+							camMovement = 0.09;
+							defaultCamZoom = 0.9;
+						case 851:
+							camMovement = 0.09;
+							defaultCamZoom = 0.8;
+						case 883:
+							camMovement = 0.09;
+							defaultCamZoom = 0.7;
+						case 899:
+							camMovement = 0.09;
+							defaultCamZoom = 0.9;
+						case 915:
+							camMovement = 0.09;
+							defaultCamZoom = 0.8;
+						case 945:
+							camMovement = 0.09;
+							defaultCamZoom = 0.7;
+							FlxG.camera.flash(FlxColor.WHITE, 0.2);
+							shakeCam = true;
+						case 949:
+							shakeCam = false;
+						case 963:
+							camMovement = 0.09;
+							defaultCamZoom = 0.8;
+				}
+			case 'Context':	
+				switch (curStep){
+					case 1:
+							camMovement = 0.02;
+							defaultCamZoom = 1.0;
+						case 19:
+							camMovement = 0.09;
+							defaultCamZoom = 0.8;
+						case 51:
+							camMovement = 0.09;
+							defaultCamZoom = 1.0;
+						case 63:
+							camMovement = 0.09;
+							defaultCamZoom = 0.7;
+						case 75:
+							camMovement = 0.09;
+							defaultCamZoom = 0.8;
+						case 83:
+							camMovement = 0.09;
+							defaultCamZoom = 1.0;
+						case 95:
+							camMovement = 0.09;
+							defaultCamZoom = 0.7;
+						case 107:
+							camMovement = 0.09;
+							defaultCamZoom = 0.8;
+						case 115:
+							camMovement = 0.09;
+							defaultCamZoom = 0.7;
+							FlxG.camera.flash(FlxColor.WHITE, 0.2);
+							shakeCam = true;
+						case 119:
+							shakeCam = false;
+						case 147:
+							camMovement = 0.09;
+							defaultCamZoom = 1.0;
+						case 179:
+							camMovement = 0.09;
+							defaultCamZoom = 0.7;
+						case 195:
+							camMovement = 0.09;
+							defaultCamZoom = 0.8;
+						case 211:
+							camMovement = 0.09;
+							defaultCamZoom = 1.0;
+						case 223:
+							camMovement = 0.09;
+							defaultCamZoom = 0.8;
+						case 307:
+							camMovement = 0.09;
+							defaultCamZoom = 0.7;
+						case 377:
+							camMovement = 0.09;
+							defaultCamZoom = 0.8;
+						case 467:
+							camMovement = 0.09;
+							defaultCamZoom = 0.9;
+						case 499:
+							camMovement = 0.09;
+							defaultCamZoom = 0.8;
+						case 626:
+							camMovement = 0.09;
+							defaultCamZoom = 0.7;
+							FlxG.camera.flash(FlxColor.WHITE, 0.2);
+							shakeCam = true;
+						case 630:
+							shakeCam = false;
+						case 643:
+							camMovement = 0.09;
+							defaultCamZoom = 1.0;
+						case 655:
+							camMovement = 0.09;
+							defaultCamZoom = 0.8;
+						case 677:
+							camMovement = 0.09;
+							defaultCamZoom = 1.0;
+						case 691:
+							camMovement = 0.09;
+							defaultCamZoom = 0.8;
+						case 773:
+							camMovement = 0.09;
+							defaultCamZoom = 1.0;
+						case 787:
+							camMovement = 0.09;
+							defaultCamZoom = 0.8;
+						case 819:
+							camMovement = 0.09;
+							defaultCamZoom = 0.7;
+						case 883:
+							camMovement = 0.09;
+							defaultCamZoom = 0.8;
+						case 948:
+							FlxG.camera.flash(FlxColor.WHITE, 0.2);
+							shakeCam = true;
+							camMovement = 0.02;
+							defaultCamZoom = 1.0;
+						case 952:
+							shakeCam = false;
+						case 1011:
+							new FlxTimer().start(0.1, function(tmr:FlxTimer)
+							{
+								defaultCamZoom -= 0.04;
+								if (defaultCamZoom > 0.8)
+								{
+									tmr.reset(0.1);
+								}
+								else
+								{
+									//add(garsmoke);
+									trace('elcamera do good');
+								}
+							});
+				}
+				
+		}
 	}
 
 	var lightningStrikeBeat:Int = 0;
