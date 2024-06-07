@@ -3494,7 +3494,7 @@ class PlayState extends MusicBeatState
 		callOnLuas('onStepHit', []);
 	
 	    switch (curSong){
-			case 'Common-sense':
+			case 'Common Sense':
 				switch (curStep){
 					case 512:
 						camMovement = 0.02;
