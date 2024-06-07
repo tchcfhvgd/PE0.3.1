@@ -3496,25 +3496,6 @@ class PlayState extends MusicBeatState
 	    switch (curSong){
 			case 'Common-sense':
 				switch (curStep){
-					case 1:
-							boyfriend.frames = Paths.getSparrowAtlas('characters/BOYFRIEND');
-							boyfriend.animation.addByPrefix('singUPmiss', 'BF NOTE UP MISS', 24, true);
-							boyfriend.animation.addByPrefix('singLEFTmiss', 'BF NOTE LEFT MISS', 24, true);
-							boyfriend.animation.addByPrefix('singRIGHTmiss', 'BF NOTE RIGHT MISS', 24, true);
-							boyfriend.animation.addByPrefix('singDOWNmiss', 'BF NOTE DOWN MISS', 24, true);
-							boyfriend.animation.addByPrefix('singintro', 'BF gun away', 24, false);
-							boyfriend.addOffset("idle", 77, 15);
-							boyfriend.addOffset("singUPmiss", -29, 27);
-							boyfriend.addOffset("singRIGHTmiss", -30, 21);
-							boyfriend.addOffset("singLEFTmiss", 12, 24);
-							boyfriend.addOffset("singDOWNmiss", -11, -19);
-							boyfriend.addOffset("singintro", 77, 15);
-							boyfriend.playAnim('singintro');
-							add(boyfriend);
-						case 16:
-							remove(boyfriend);
-							boyfriend = new Boyfriend(1100, 450, 'bf');
-							add(boyfriend);
 					case 512:
 						camMovement = 0.02;
 						defaultCamZoom = 1.0;
