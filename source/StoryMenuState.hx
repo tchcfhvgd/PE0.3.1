@@ -26,13 +26,13 @@ class StoryMenuState extends MusicBeatState
 	// playing just the modded week then delete it.
 	// defaults to True
 	public static var weekUnlocked:Array<Bool> = [
-		true,	//Tutorial
+		false,	//Tutorial
 		true,	//Week 1
-		true,	//Week 2
-		true,	//Week 3
-		true,	//Week 4
-		true,	//Week 5
-		true	//Week 6
+		false,	//Week 2
+		false,	//Week 3
+	        false,	//Week 4
+		false,	//Week 5
+		false	//Week 6
 	];
 
 	//It works like this:
@@ -196,8 +196,8 @@ class StoryMenuState extends MusicBeatState
 		rightArrow.antialiasing = ClientPrefs.globalAntialiasing;
 		difficultySelectors.add(rightArrow);
 
-		add(bgSprite);
-		add(grpWeekCharacters);
+		//add(bgSprite);
+		//add(grpWeekCharacters);
 
 		var tracksSprite:FlxSprite = new FlxSprite(FlxG.width * 0.07, bgSprite.y + 435).loadGraphic(Paths.image('Menu_Tracks'));
 		tracksSprite.antialiasing = ClientPrefs.globalAntialiasing;
@@ -207,10 +207,10 @@ class StoryMenuState extends MusicBeatState
 		txtTracklist.alignment = CENTER;
 		txtTracklist.font = rankText.font;
 		txtTracklist.color = 0xFFe55777;
-		add(txtTracklist);
+		//add(txtTracklist);
 		// add(rankText);
-		add(scoreText);
-		add(txtWeekTitle);
+		//add(scoreText);
+		//add(txtWeekTitle);
 
 		changeWeek();
 
